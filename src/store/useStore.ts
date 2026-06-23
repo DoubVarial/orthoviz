@@ -17,6 +17,9 @@ interface AppStore {
   // Plan
   plan: TreatmentPlan;
 
+  // Camera
+  resetViewToken: number;
+
   // Actions
   setActiveJaw(jaw: 'upper' | 'lower' | 'both'): void;
   setSelectedTooth(id: ToothId | null): void;
@@ -27,6 +30,7 @@ interface AppStore {
   updateMovement(toothId: ToothId, stepIndex: number, delta: Partial<ToothMovement>): void;
   addStep(): void;
   removeStep(stepIndex: number): void;
+  resetView(): void;
 }
 
 const initialPlan: TreatmentPlan = {
@@ -49,6 +53,9 @@ export const useStore = create<AppStore>((set) => ({
   currentStep: 0,
   stepProgress: 0,
   isPlaying: false,
+
+  // Camera
+  resetViewToken: 0,
 
   // Plan
   plan: initialPlan,
@@ -86,6 +93,8 @@ export const useStore = create<AppStore>((set) => ({
       };
       return { plan: { ...state.plan, steps } };
     }),
+
+  resetView: () => set((state) => ({ resetViewToken: state.resetViewToken + 1 })),
 
   addStep: () =>
     set((state) => ({

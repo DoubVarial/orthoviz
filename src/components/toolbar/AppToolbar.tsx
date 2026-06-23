@@ -5,6 +5,7 @@ import PauseIcon from '@mui/icons-material/Pause';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
+import HomeIcon from '@mui/icons-material/Home';
 import { useStore } from '../../store/useStore';
 
 export function AppToolbar() {
@@ -16,6 +17,7 @@ export function AppToolbar() {
   const isPlaying = useStore((s) => s.isPlaying);
   const setPlaying = useStore((s) => s.setPlaying);
   const totalSteps = useStore((s) => s.plan.steps.length);
+  const resetView = useStore((s) => s.resetView);
 
   const rafRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number | null>(null);
@@ -144,6 +146,16 @@ export function AppToolbar() {
         title="Skip to last step"
       >
         <SkipNextIcon />
+      </IconButton>
+
+      {/* Reset View */}
+      <IconButton
+        size="small"
+        onClick={resetView}
+        color="inherit"
+        title="Reset camera view"
+      >
+        <HomeIcon />
       </IconButton>
     </Box>
   );
