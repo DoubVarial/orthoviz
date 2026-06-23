@@ -16,13 +16,18 @@ export function ToothScene() {
 
   return (
     <Canvas
-      camera={{ position: [0, 0, 15] as [number, number, number], fov: 45 }}
+      camera={{ position: [0, 0.3, 3] as [number, number, number], fov: 45 }}
       style={{ background: '#1a1a2e' }}
     >
       <ambientLight intensity={0.6} />
       <directionalLight position={[10, 10, 5]} intensity={1.2} />
       <directionalLight position={[-10, -10, -5]} intensity={0.3} />
-      <OrbitControls ref={controlsRef} enableDamping dampingFactor={0.05} />
+      <OrbitControls
+        ref={controlsRef}
+        enableDamping
+        dampingFactor={0.05}
+        target={[0, 0.3, 0.8] as [number, number, number]}
+      />
       <DentalArch jaw="upper" toothIds={UPPER_TEETH} />
       <DentalArch jaw="lower" toothIds={LOWER_TEETH} />
     </Canvas>
