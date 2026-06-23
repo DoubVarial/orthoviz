@@ -29,17 +29,9 @@ export function applyToothMovement(
   t: number,
 ): void {
   const scale = t;
-
-  // Apply translation from origin
-  mesh.position
-    .copy(frame.origin)
-    .addScaledVector(frame.mdAxis, movement.mesiodistal * scale)
-    .addScaledVector(frame.blAxis, movement.buccolingual * scale)
-    .addScaledVector(frame.longAxis, movement.intrusionExtrusion * scale);
-
-  // Apply rotations in tooth-local space
   const toRad = Math.PI / 180;
 
+  // Build combined rotation quaternion (tipping → torque → rotation)
   const qTipping = new THREE.Quaternion().setFromAxisAngle(
     frame.blAxis,
     movement.tipping * toRad * scale,
@@ -52,6 +44,17 @@ export function applyToothMovement(
     frame.longAxis,
     movement.rotation * toRad * scale,
   );
+  const combined = new THREE.Quaternion().copy(qTipping).multiply(qTorque).multiply(qRotation);
+  mesh.quaternion.copy(combined);
 
-  mesh.quaternion.copy(qTipping).multiply(qTorque).multiply(qRotation);
+  // To rotate around the tooth center (frame.origin in world space when group is at origin),
+  // rather than around the group's local origin (0,0,0):
+  // group.position = frame.origin - Q(frame.origin) + translation_delta
+  const rotatedOrigin = frame.origin.clone().applyQuaternion(combined);
+  mesh.position
+    .copy(frame.origin)
+    .sub(rotatedOrigin)
+    .addScaledVector(frame.mdAxis, movement.mesiodistal * scale)
+    .addScaledVector(frame.blAxis, movement.buccolingual * scale)
+    .addScaledVector(frame.longAxis, movement.intrusionExtrusion * scale);
 }

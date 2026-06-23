@@ -19,9 +19,6 @@ export function ToothMesh({ id }: ToothMeshProps) {
   const setToothFrame = useStore((s) => s.setToothFrame);
   const setSelectedTooth = useStore((s) => s.setSelectedTooth);
   const selectedToothId = useStore((s) => s.selectedToothId);
-  const plan = useStore((s) => s.plan);
-  const currentStep = useStore((s) => s.currentStep);
-  const stepProgress = useStore((s) => s.stepProgress);
 
   // Clone scene so each tooth has its own material/transform
   const clonedScene = useMemo(() => scene.clone(true), [scene]);
@@ -32,23 +29,37 @@ export function ToothMesh({ id }: ToothMeshProps) {
     setToothFrame(id, frame);
   }, [clonedScene, id, setToothFrame]);
 
-  // Apply/remove emissive highlight based on selection
+  // Apply/remove emissive highlight based on selection (create highlight material once, reuse it)
   useEffect(() => {
     const isSelected = selectedToothId === id;
     clonedScene.traverse((child) => {
       if (!(child instanceof THREE.Mesh)) return;
+      // Store original material reference on first encounter
       if (!child.userData.originalMaterial) {
         child.userData.originalMaterial = child.material;
       }
       if (isSelected) {
-        const mat = (child.userData.originalMaterial as THREE.MeshStandardMaterial).clone();
-        mat.emissive = new THREE.Color(0x0044ff);
-        mat.emissiveIntensity = 0.4;
-        child.material = mat;
+        // Create highlight material once and cache it
+        if (!child.userData.highlightMaterial) {
+          const mat = (child.userData.originalMaterial as THREE.MeshStandardMaterial).clone();
+          mat.emissive = new THREE.Color(0x0044ff);
+          mat.emissiveIntensity = 0.4;
+          child.userData.highlightMaterial = mat;
+        }
+        child.material = child.userData.highlightMaterial;
       } else {
         child.material = child.userData.originalMaterial;
       }
     });
+    // Cleanup: dispose highlight material on unmount
+    return () => {
+      clonedScene.traverse((child) => {
+        if (child instanceof THREE.Mesh && child.userData.highlightMaterial) {
+          (child.userData.highlightMaterial as THREE.Material).dispose();
+          delete child.userData.highlightMaterial;
+        }
+      });
+    };
   }, [selectedToothId, id, clonedScene]);
 
   // Animate: interpolate between current and next step movements
@@ -88,11 +99,6 @@ export function ToothMesh({ id }: ToothMeshProps) {
     e.stopPropagation();
     setSelectedTooth(id);
   };
-
-  // suppress unused-variable warnings for reactive store subscriptions
-  void plan;
-  void currentStep;
-  void stepProgress;
 
   return (
     <group ref={groupRef} onClick={handleClick}>
