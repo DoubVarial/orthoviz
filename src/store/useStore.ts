@@ -34,11 +34,7 @@ interface AppStore {
 }
 
 const initialPlan: TreatmentPlan = {
-  steps: [
-    { movements: {} },
-    { movements: {} },
-    { movements: {} },
-  ],
+  steps: [{ movements: {} }],
 };
 
 export const useStore = create<AppStore>((set) => ({
@@ -102,6 +98,8 @@ export const useStore = create<AppStore>((set) => ({
         ...state.plan,
         steps: [...state.plan.steps, { movements: {} }],
       },
+      currentStep: state.plan.steps.length, // navigate to the new step
+      stepProgress: 0,
     })),
 
   removeStep: (stepIndex) =>
