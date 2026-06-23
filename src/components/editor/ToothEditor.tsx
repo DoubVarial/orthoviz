@@ -1,6 +1,7 @@
 import { Box, Typography, Slider, Button, Divider } from '@mui/material';
 import { useStore } from '../../store/useStore';
-import { DEFAULT_MOVEMENT, ToothMovement } from '../../types/dental';
+import { DEFAULT_MOVEMENT } from '../../types/dental';
+import type { ToothMovement } from '../../types/dental';
 
 interface SliderConfig {
   label: string;
@@ -55,7 +56,7 @@ export function ToothEditor() {
 
   return (
     <Box sx={{ p: 2 }}>
-      <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+      <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }} gutterBottom>
         Tooth {selectedToothId}
       </Typography>
       <Divider sx={{ mb: 2 }} />

@@ -1,5 +1,5 @@
 import { useStore } from '../../store/useStore';
-import { ToothId } from '../../types/dental';
+import type { ToothId } from '../../types/dental';
 import { ToothMesh } from './ToothMesh';
 
 interface DentalArchProps {

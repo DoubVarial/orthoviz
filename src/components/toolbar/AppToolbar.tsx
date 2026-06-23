@@ -12,7 +12,6 @@ export function AppToolbar() {
   const setActiveJaw = useStore((s) => s.setActiveJaw);
   const currentStep = useStore((s) => s.currentStep);
   const setCurrentStep = useStore((s) => s.setCurrentStep);
-  const stepProgress = useStore((s) => s.stepProgress);
   const setStepProgress = useStore((s) => s.setStepProgress);
   const isPlaying = useStore((s) => s.isPlaying);
   const setPlaying = useStore((s) => s.setPlaying);

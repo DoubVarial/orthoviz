@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { ToothFrame, ToothMovement } from '../types/dental';
+import type { ToothFrame, ToothMovement } from '../types/dental';
 
 export function extractToothFrame(scene: THREE.Object3D): ToothFrame {
   const box = new THREE.Box3().setFromObject(scene);

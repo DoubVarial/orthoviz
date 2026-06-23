@@ -1,10 +1,11 @@
 import { useRef, useEffect, useMemo } from 'react';
-import { useFrame, ThreeEvent } from '@react-three/fiber';
+import { useFrame, type ThreeEvent } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { useStore } from '../../store/useStore';
 import { extractToothFrame, applyToothMovement } from '../../lib/toothCoords';
-import { ToothId, ToothMovement, DEFAULT_MOVEMENT } from '../../types/dental';
+import { DEFAULT_MOVEMENT } from '../../types/dental';
+import type { ToothId, ToothMovement } from '../../types/dental';
 
 interface ToothMeshProps {
   id: ToothId;

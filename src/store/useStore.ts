@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { ToothId, ToothFrame, ToothMovement, TreatmentPlan } from '../types/dental';
+import type { ToothId, ToothFrame, ToothMovement, TreatmentPlan } from '../types/dental';
 
 interface AppStore {
   // View
