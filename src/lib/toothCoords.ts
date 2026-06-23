@@ -1,6 +1,10 @@
 import * as THREE from 'three';
 import type { ToothFrame, ToothMovement } from '../types/dental';
 
+// GLB models use ~29.5mm per scene unit (measured: tooth-11 mesiodistal span = 0.288 units ≈ 8.5mm).
+// Slider values are in mm → multiply by this factor to get scene units.
+const UNITS_PER_MM = 0.288 / 8.5;
+
 export function extractToothFrame(scene: THREE.Object3D): ToothFrame {
   const box = new THREE.Box3().setFromObject(scene);
   const origin = box.getCenter(new THREE.Vector3());
@@ -54,7 +58,7 @@ export function applyToothMovement(
   mesh.position
     .copy(frame.origin)
     .sub(rotatedOrigin)
-    .addScaledVector(frame.mdAxis, movement.mesiodistal * scale)
-    .addScaledVector(frame.blAxis, movement.buccolingual * scale)
-    .addScaledVector(frame.longAxis, movement.intrusionExtrusion * scale);
+    .addScaledVector(frame.mdAxis, movement.mesiodistal * scale * UNITS_PER_MM)
+    .addScaledVector(frame.blAxis, movement.buccolingual * scale * UNITS_PER_MM)
+    .addScaledVector(frame.longAxis, movement.intrusionExtrusion * scale * UNITS_PER_MM);
 }
