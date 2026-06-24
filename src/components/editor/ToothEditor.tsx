@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Box, Typography, Slider, Button, Divider, TextField, InputAdornment } from '@mui/material';
 import { useStore } from '../../store/useStore';
-import { DEFAULT_MOVEMENT } from '../../types/dental';
+import { DEFAULT_MOVEMENT, getToothName } from '../../types/dental';
 import type { ToothMovement } from '../../types/dental';
 
 interface SliderConfig {
@@ -129,8 +129,11 @@ export function ToothEditor() {
 
   return (
     <Box sx={{ p: 2 }}>
-      <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }} gutterBottom>
+      <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
         Tooth {selectedToothId}
+      </Typography>
+      <Typography variant="caption" color="text.secondary" gutterBottom sx={{ display: 'block' }}>
+        {getToothName(selectedToothId)}
       </Typography>
       <Divider sx={{ mb: 2 }} />
 

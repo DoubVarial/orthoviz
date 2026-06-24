@@ -39,6 +39,32 @@ export const LOWER_TEETH: ToothId[] = [
   '41','42','43','44','45','46','47','48',
 ];
 
+const QUADRANT_NAMES: Record<string, string> = {
+  '1': 'Upper Right',
+  '2': 'Upper Left',
+  '3': 'Lower Left',
+  '4': 'Lower Right',
+};
+
+const TOOTH_TYPE_NAMES: Record<string, string> = {
+  '1': 'Central Incisor',
+  '2': 'Lateral Incisor',
+  '3': 'Canine',
+  '4': 'First Premolar',
+  '5': 'Second Premolar',
+  '6': 'First Molar',
+  '7': 'Second Molar',
+  '8': 'Third Molar',
+};
+
+export function getToothName(id: ToothId): string {
+  const quadrant = id[0];
+  const position = id[1];
+  const quadrantName = QUADRANT_NAMES[quadrant] ?? '';
+  const typeName = TOOTH_TYPE_NAMES[position] ?? '';
+  return `${quadrantName} ${typeName}`.trim();
+}
+
 export const DEFAULT_MOVEMENT: ToothMovement = {
   mesiodistal: 0,
   buccolingual: 0,
