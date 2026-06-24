@@ -61,6 +61,12 @@ This notation is used by orthodontists and dental professionals worldwide and is
 
 ---
 
+## Credits
+
+The 3D tooth models are from [Permanent Dentition](https://sketchfab.com/3d-models/permanent-dentition-2f69d7b59c3e4a6a8bcae041bd8e591b) by **University of Dundee, School of Dentistry**, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+---
+
 ## Project Structure
 
 ```
