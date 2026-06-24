@@ -4,7 +4,7 @@
 
 Visualize and plan tooth movements step-by-step in real time — directly in the browser, no plugins required.
 
-**Live Demo:** https://\<your-username\>.github.io/orthoviz/
+**Live Demo:** https://DoubVarial.github.io/orthoviz/
 
 ---
 
