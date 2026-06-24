@@ -1,73 +1,73 @@
-# React + TypeScript + Vite
+# OrthoViz
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Interactive 3D orthodontic treatment planning tool** built as a portfolio demo for Align Technology (Invisalign).
 
-Currently, two official plugins are available:
+Visualize and plan tooth movements step-by-step in real time — directly in the browser, no plugins required.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Live Demo:** https://\<your-username\>.github.io/orthoviz/
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- **6-DOF tooth movement** — translate and rotate each tooth along all three axes (X, Y, Z) with millimeter-precise slider controls
+- **Multi-step treatment animation** — add, remove, and navigate between treatment steps; animate the full sequence with play/pause
+- **Upper / lower jaw toggle** — switch between maxillary and mandibular arch views
+- **Reset View** — restore the default camera position with a single click
+- **Editable numeric inputs** — click any slider value to type an exact number directly
+- **ISO 3950 tooth notation** — internationally standardized two-digit tooth numbering used throughout the UI
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Layer | Technology |
+|---|---|
+| Framework | React 19, TypeScript |
+| 3D rendering | Three.js, React Three Fiber, React Three Drei |
+| UI components | Material UI (MUI) v9 |
+| State management | Zustand |
+| Build tool | Vite |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+To build for production:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
+```
+
+---
+
+## ISO 3950 Tooth Notation
+
+OrthoViz uses the **ISO 3950 / FDI two-digit numbering system**, the international standard for identifying teeth:
+
+- The **first digit** identifies the quadrant (1 = upper right, 2 = upper left, 3 = lower left, 4 = lower right)
+- The **second digit** identifies the tooth within that quadrant (1 = central incisor → 8 = third molar)
+
+**Example:** Tooth **21** = upper left central incisor (what most people call the "front tooth on the left side").
+
+This notation is used by orthodontists and dental professionals worldwide and is the standard in Invisalign clinical workflows.
+
+---
+
+## Project Structure
+
+```
+src/
+  components/       # React UI components (panels, sliders, controls)
+  store/            # Zustand state (tooth positions, treatment steps)
+  types/            # TypeScript interfaces
+public/
+  models/           # 3D tooth models (.glb)
 ```

@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# AI tooling artifacts
+.claude/
+.superpowers/
+superpowers/
+
+# Temporary files
+test.txt
