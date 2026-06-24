@@ -12,7 +12,7 @@ interface ToothMeshProps {
 }
 
 export function ToothMesh({ id }: ToothMeshProps) {
-  const { scene } = useGLTF(`/models/tooth-${id}.glb`);
+  const { scene } = useGLTF(`${import.meta.env.BASE_URL}models/tooth-${id}.glb`);
 
   const groupRef = useRef<THREE.Group>(null);
 
