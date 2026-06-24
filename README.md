@@ -1,6 +1,6 @@
 # OrthoViz
 
-**Interactive 3D orthodontic treatment planning tool** built as a portfolio demo for Align Technology (Invisalign).
+**Interactive 3D orthodontic treatment planning tool** built as a portfolio project.
 
 Visualize and plan tooth movements step-by-step in real time — directly in the browser, no plugins required.
 
